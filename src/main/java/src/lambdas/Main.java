@@ -1,9 +1,8 @@
 package src.lambdas;
 
-import src.lambdas.interfaces.Greeter;
-import src.lambdas.interfaces.MathOperation;
-import src.lambdas.interfaces.Printable;
-import src.lambdas.interfaces.Validator;
+import src.lambdas.interfaces.*;
+
+import java.util.List;
 
 
 public class Main {
@@ -28,7 +27,7 @@ public class Main {
         greetUpperCase.greeter("Jörg");
 
         // MathOperation
-        MathOperation add = (a, b) -> a + b;
+        MathOperation add = Integer::sum;
         MathOperation subtract = (a, b) -> a - b;
         MathOperation divide = (a, b) -> a / b;
         MathOperation multiply = (a, b) -> a * b;
@@ -37,6 +36,15 @@ public class Main {
         System.out.println(result);
 
         // StringTransformer
+        StringTransformer upperLambda = String::toUpperCase;
+        StringTransformer reverseLambda = s -> new StringBuilder(s).reverse().toString();
+        System.out.println(upperLambda.transform("Hallo"));
+        System.out.println(reverseLambda.transform("Steve"));
+
+        // List Transformer
+        Transformer transformer = (aList, lb) -> aList.stream().map(lb::transform).toList();
+        List<String> strings = transformer.applyAll(List.of("Steve", "Jörg"), upperLambda);
+        System.out.println(strings);
 
 
     }
