@@ -21,13 +21,13 @@ public class Main {
         System.out.println(username.validate("bob"));        // true
         System.out.println(username.validate("bob smith"));  // false
 
-        // Greeter
+        // 1. Greeter
         Greeter greetsHello = (name) -> System.out.println("Hello " + name + "!");
         Greeter greetUpperCase = (name) -> System.out.println(name.toUpperCase() + "!!!");
         greetsHello.greet("Steve");
         greetUpperCase.greet("Jörg");
 
-        // MathOperation
+        // 2. Calculator
         MathOperation add = Integer::sum;
         MathOperation subtract = (a, b) -> a - b;
         MathOperation multiply = (a, b) -> a * b;
@@ -47,23 +47,24 @@ public class Main {
         System.out.println(part);
 
 
-        // StringTransformer
+        // 3. String transformer
         StringTransformer upperLambda = String::toUpperCase;
         StringTransformer reverseLambda = s -> new StringBuilder(s).reverse().toString();
         System.out.println(upperLambda.transform("Hallo"));
         System.out.println(reverseLambda.transform("Steve"));
 
-        // List Transformer
+        // 4. Apply to a list
 //        Transformer transformer = (aList, lb) -> aList.stream().map(lb::transform).toList();
 //        List<String> strings = transformer.applyAll(List.of("Steve", "Jörg"), upperLambda);
 //        System.out.println(strings);
 
-        // List Transformer Generics
+        // 5. Generic interfaces
         List<String> words = List.of("hi", "java", "is", "great", "fun", "lambda");
         List<String> longWords = filter(words, (w) -> w.length() > 2);
         List<Integer> length = map(longWords, String::length);
         System.out.println(length);
 
+        // 6. Combinable conditions
 
     }
 
@@ -88,4 +89,6 @@ public class Main {
         }
         return result;
     }
+
+
 }
