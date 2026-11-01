@@ -1,10 +1,12 @@
 package src.lambdas.interfaces;
 
+import src.lambdas.DivisionByZeroException;
+
 @FunctionalInterface
 public interface MathOperation {
     int operate(int a, int b);
 
-    static int calculate(int a, int b,  MathOperation op) {
+    static int calculate(int a, int b, MathOperation op) {
         return op.operate(a, b);
     }
 }
