@@ -5,8 +5,8 @@ import src.lambdas.interfaces.*;
 import java.util.List;
 
 import static src.lambdas.interfaces.Condition.filter;
-import static src.lambdas.interfaces.Condition.map;
 import static src.lambdas.interfaces.Printable.printThing;
+import static src.lambdas.interfaces.Transformer.map;
 
 
 public class Main {
@@ -59,7 +59,7 @@ public class Main {
         // 4. Apply to a list
         List<String> words01 = List.of("hi", "java", "is", "great", "fun", "lambda");
         StringTransformer upperCase = String::toUpperCase;
-        List<String> listOfUpperCaseWords = Transformer.applyAll(words01, upperCase);
+        List<String> listOfUpperCaseWords = StringTransformer.applyAll(words01, upperCase);
         System.out.println(listOfUpperCaseWords);
 
         // 5. Generic interfaces

@@ -30,14 +30,6 @@ public interface Condition<T> {
         return result;
     }
 
-    static <T, R> List<R> map(List<T> list, Transformer<T, R> transformer) {
-        List<R> result = new ArrayList<>();
-        for (T item : list) {
-            result.add(transformer.apply(item));
-        }
-        return result;
-    }
-
     static <T> Condition<T> isEqual(T value) {
         return t -> Objects.equals(t, value);
     }
