@@ -2,8 +2,11 @@ package src.lambdas;
 
 import src.lambdas.interfaces.*;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static src.lambdas.interfaces.Condition.filter;
+import static src.lambdas.interfaces.Condition.map;
+import static src.lambdas.interfaces.Printable.printThing;
 
 
 public class Main {
@@ -54,41 +57,25 @@ public class Main {
         System.out.println(reverseLambda.transform("Steve"));
 
         // 4. Apply to a list
-//        Transformer transformer = (aList, lb) -> aList.stream().map(lb::transform).toList();
-//        List<String> strings = transformer.applyAll(List.of("Steve", "Jörg"), upperLambda);
-//        System.out.println(strings);
+        List<String> words01 = List.of("hi", "java", "is", "great", "fun", "lambda");
+        StringTransformer upperCase = String::toUpperCase;
+        List<String> listOfUpperCaseWords = Transformer.applyAll(words01, upperCase);
+        System.out.println(listOfUpperCaseWords);
 
         // 5. Generic interfaces
-        List<String> words = List.of("hi", "java", "is", "great", "fun", "lambda");
-        List<String> longWords = filter(words, (w) -> w.length() > 2);
+        List<String> words02 = List.of("hi", "java", "is", "great", "fun", "lambda");
+        List<String> longWords = filter(words02, (w) -> w.length() > 3);
         List<Integer> length = map(longWords, String::length);
         System.out.println(length);
 
         // 6. Combinable conditions
+        List<Integer> numbers = List.of(1, 2, 3, 4, 10, 11, 12, 15, 20, 21, 30);
+        Condition<Integer> isEven = n -> n % 2 == 0;
+        Condition<Integer> greaterThan10 = n -> n > 10;
+
+        Condition<Integer> rule = isEven.and(greaterThan10).or(Condition.isEqual(3));
+        System.out.println(filter(numbers, rule));
+        System.out.println(filter(numbers, isEven.negate()));
 
     }
-
-    static void printThing(Printable thing) {
-        System.out.println(thing.print("!"));
-    }
-
-    static <T> List<T> filter(List<T> list, Condition<T> condition) {
-        List<T> result = new ArrayList<>();
-        for (T item : list) {
-            if (condition.test(item)) {
-                result.add(item);
-            }
-        }
-        return result;
-    }
-
-    static <T, R> List<R> map(List<T> list, Transformer<T, R> transformer) {
-        List<R> result = new ArrayList<>();
-        for (T item : list) {
-            result.add(transformer.apply(item));
-        }
-        return result;
-    }
-
-
 }
